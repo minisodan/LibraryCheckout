@@ -1,4 +1,4 @@
-package com.mason.library.library_checkout.Objects;
+package com.mason.library.library_checkout.objects;
 
 /**
  * Enum to represent the status of the user

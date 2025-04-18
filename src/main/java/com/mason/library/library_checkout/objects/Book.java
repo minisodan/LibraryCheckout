@@ -1,4 +1,9 @@
-package com.mason.library.library_checkout.Objects;
+package com.mason.library.library_checkout.objects;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Objects;
 
@@ -7,12 +12,18 @@ import java.util.Objects;
  *
  * @author masonmyles
  */
+@Entity
+@Table(name = "Book")
 public class Book {
+    @Id
+    @GeneratedValue
     private long id;
     private String title;
     private String author;
     private String publisher;
     private String isbn;
+
+    public Book() {}
 
     /**
      * Constructor.
@@ -27,6 +38,14 @@ public class Book {
         this.author = author;
         this.publisher = publisher;
         this.isbn = isbn;
+    }
+
+    private Book(Builder builder) {
+        this.id = builder.id;
+        this.title = builder.title;
+        this.author = builder.author;
+        this.publisher = builder.publisher;
+        this.isbn = builder.isbn;
     }
 
     /**
@@ -74,49 +93,45 @@ public class Book {
         return isbn;
     }
 
-    /**
-     * Sets the Book ID
-     *
-     * @param id ID of the book to be set.
-     */
-    public void setId(long id) {
-        this.id = id;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    /**
-     * Sets the author
-     *
-     * @param author author of the book to be set
-     */
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public static class Builder {
+        private long id;
+        private String title;
+        private String author;
+        private String publisher;
+        private String isbn;
 
-    /**
-     * Sets the title
-     *
-     * @param title title of the book to be set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
+        public Builder withId(long id) {
+            this.id = id;
+            return this;
+        }
 
-    /**
-     * Sets the publisher
-     *
-     * @param publisher publisher of the book to be set.
-     */
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
+        public Builder withTitle(String title) {
+            this.title = title;
+            return this;
+        }
 
-    /**
-     * Sets the Isbn
-     *
-     * @param isbn isbn of the book to be set.
-     */
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        public Builder withAuthor(String author) {
+            this.author = author;
+            return this;
+        }
+
+        public Builder withPublisher(String publisher) {
+            this.publisher = publisher;
+            return this;
+        }
+
+        public Builder withIsbn(String isbn) {
+            this.isbn = isbn;
+            return this;
+        }
+
+        public Book build() {
+            return new Book(this);
+        }
     }
 
     @Override
