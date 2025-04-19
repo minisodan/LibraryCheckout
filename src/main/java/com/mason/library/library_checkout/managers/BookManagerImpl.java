@@ -16,12 +16,16 @@ public class BookManagerImpl implements BookManager{
     @Override
     public List<Book> getBooksByTitle(String title) throws BookInformationException
     {
-        if (title == null || title.isEmpty())
-        {
-            throw new BookInformationException("Book with title" + title + " not found");
+        List<Book> books = bookDAO.getAllBooksByTitle(title);
+        if (books.isEmpty()) {
+            throw new BookInformationException("Book with title '" + title + "' not found");
         }
+        return books;
+    }
 
-        return bookDAO.getAllBooksByTitle(title);
+    @Override
+    public List<Book> getAllBooks() throws BookInformationException {
+        return bookDAO.getAllBooks();
     }
 
 }

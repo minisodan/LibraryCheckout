@@ -21,4 +21,10 @@ public class BookService {
     {
         return bookManager.getBooksByTitle(title);
     }
+
+    @GetMapping("/book")
+    List<Book> getBooks() throws BookInformationException
+    {
+        return bookManager.getAllBooks();
+    }
 }
